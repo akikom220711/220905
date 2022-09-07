@@ -14,11 +14,14 @@ use App\Http\Controllers\SalesController;
 |
 */
 
-Route::group(['middleware' => 'auth'], function(){
-Route::get('/', [SalesController::class, 'index']);
+
+Route::get('/', [SalesController::class, 'index'])->name('index');
 Route::post('/', [SalesController::class, 'checkUser']);
+
 Route::get('/regist', [SalesController::class, 'goToRegistPage']);
 Route::post('/regist', [SalesController::class, 'registration']);
+
+Route::group(['middleware' => 'auth'], function(){
 Route::get('/home', [SalesController::class, 'home']);
 Route::post('/select', [SalesController::class, 'select'])->name('select');
 Route::post('/edit', [SalesController::class, 'edit'])->name('edit');
@@ -34,11 +37,8 @@ Route::get('/forgot', function(){
 
 Route::get('/logout', function() {
     Auth::logout();
-    return view('/Auth/login');
+    return view('/auth');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';

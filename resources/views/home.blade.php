@@ -32,13 +32,9 @@
       @foreach ($company as $name)
         @if ($name->status == $state)
           <tr class="company_tr2"><td>
-            <!--<form action="{{route('select', ['selected' => $name->id])}}", method="POST">
+            <form action="{{route('select', ['selected' => $name->id])}}", method="POST">
               @csrf
                 <input class="company_button" type="submit" value="{{$name -> company_name}}">
-            </form>-->
-            <form action="#modal", method="GET">
-              @csrf
-                <input class="company_button" type="submit" name="{{$name -> id}}" value="{{$name -> company_name}}">
             </form>
           </td></tr>
         @endif
@@ -49,50 +45,12 @@
 </div>
 
 
+
 <div class="lightbox" id="modal">
   <a href="#" class="close"></a>
 
   <div class="lightbox-wrapper">
-@if ($selected_company != null)
-<div class="lightbox_table">
-  @foreach ($selected_company as $company)
-  <form action="{{route('edit', ['id' => $company->id])}}" method= "POST">
-    @csrf
-    <table>
-      <tr>
-        <th class="lightbox_table_th">会社名</th>
-        <td><input type="text" name="company_name" value="{{$company -> company_name}}"></td>
-      </tr>
-      <tr>
-        <th class="lightbox_table_th">代表者名</th>
-        <td><input type="text" name="head_name" value="{{$company -> head_name}}"></td>
-      </tr>
-      <tr>
-        <th class="lightbox_table_th">電話番号</th>
-        <td><input type="text" name="tel" value="{{$company -> tel}}"></td>
-      </tr>
-      <tr>
-        <th class="lightbox_table_th">メールアドレス</th>
-        <td><input type="text" name="email" value="{{$company -> email}}"></td>
-      </tr>
-      <tr>
-        <th class="lightbox_table_th">セールスステータス</th>
-        <td><select name="status_id" size="1">
-              @foreach ($status as $state)
-                @if ($state -> id == $company -> status_id)
-                  <option value="{{$state -> id}}" selected>{{$state -> status}}</option>
-                @else
-                  <option value="{{$state -> id}}">{{$state -> status}}</option>
-                @endif
-              @endforeach
-            </select></td>
-      </tr>
-    </table>
-    <input class="login_button" type="submit" value="更新">
-  </form>
-  @endforeach
-</div>
-@else
+
 <div class="lightbox_table">
   <form action="{{route('add', ['user_id' => $user->id])}}" method= "POST">
     @csrf
@@ -125,10 +83,10 @@
     <input class="login_button" type="submit" value="追加">
   </form>
 </div>
-@endif
+
+</div>
+</div>
 
 @endif
-</div>
-</div>
 
 @endsection

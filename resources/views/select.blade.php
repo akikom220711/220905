@@ -5,7 +5,7 @@
 @section('content')
 @if (Auth::check())
 
-<div class="all">
+
 
 <div class= "title">
   <h3>SalesManagement</h3>
@@ -36,7 +36,7 @@
           <tr class="company_tr2"><td>
             <form action="{{route('select', ['selected' => $name->id])}}", method="POST">
               @csrf
-                <input class="company_button" type="submit"  href='#modal' value="{{$name -> company_name}}">
+                <input class="company_button" type="submit" value="{{$name -> company_name}}">
             </form>
           </td></tr>
         @endif
@@ -46,9 +46,10 @@
 @endforeach
 </div>
 
-<div>
+<div class="all">
+  <a href="home" class="close"></a>
   <div class="lightbox-wrapper">
-@if ($selected_company != null)
+
 <div class="lightbox_table">
   @foreach ($selected_company as $company)
   <form action="{{route('edit', ['id' => $company->id])}}" method= "POST">
@@ -87,41 +88,8 @@
   </form>
   @endforeach
 </div>
-@else
-<div class="lightbox_table">
-  <form action="{{route('add', ['user_id' => $user->id])}}" method= "POST">
-    @csrf
-    <table>
-      <tr>
-        <th class="lightbox_table_th">会社名</th>
-        <td><input type="text" name="company_name"></td>
-      </tr>
-      <tr>
-        <th class="lightbox_table_th">代表者名</th>
-        <td><input type="text" name="head_name"></td>
-      </tr>
-      <tr>
-        <th class="lightbox_table_th">電話番号</th>
-        <td><input type="text" name="tel"></td>
-      </tr>
-      <tr>
-        <th class="lightbox_table_th">メールアドレス</th>
-        <td><input type="text" name="email"></td>
-      </tr>
-      <tr>
-        <th class="lightbox_table_th">セールスステータス</th>
-        <td><select name="status_id" size="1">
-              @foreach ($status as $state)
-                  <option value="{{$state -> id}}">{{$state -> status}}</option>
-              @endforeach
-            </select></td>
-      </tr>
-    </table>
-    <input class="login_button" type="submit" value="追加">
-  </form>
-</div>
-@endif
 
+</div>
 </div>
 @endif
 
